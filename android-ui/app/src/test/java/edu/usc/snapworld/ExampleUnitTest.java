@@ -1,4 +1,4 @@
-package com.mycompany.camera;
+package edu.usc.snapworld;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.mycompany.camera;
+package edu.usc.snapworld;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
