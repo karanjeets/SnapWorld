@@ -8,8 +8,10 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.graphics.Point;
@@ -273,8 +275,17 @@ public class CameraFragment extends Fragment
 
         @Override
         public void onImageAvailable(ImageReader reader) {
+
             // Do Something with the Image or Save it!!
-            mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile));
+            Image img = reader.acquireNextImage();
+            ByteBuffer buffer = img.getPlanes()[0].getBuffer();
+            byte[] bytes = new byte[buffer.remaining()];
+            buffer.get(bytes);
+            DetailsActivity.bytes = bytes;
+            Intent myIntent = new Intent((MainActivity)getActivity(), DetailsActivity.class);
+            getActivity().startActivity(myIntent);
+
+            //mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile));
         }
 
     };
@@ -1007,6 +1018,9 @@ public class CameraFragment extends Fragment
             ByteBuffer buffer = mImage.getPlanes()[0].getBuffer();
             byte[] bytes = new byte[buffer.remaining()];
             buffer.get(bytes);
+
+            //BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
             FileOutputStream output = null;
             try {
                 output = new FileOutputStream(mFile);
