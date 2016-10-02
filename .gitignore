@@ -53,3 +53,8 @@ hs_err_pid*
 
 # Mac files
 .DS_Store
+
+# Eclipse Files
+.classpath
+.project
+.settings/

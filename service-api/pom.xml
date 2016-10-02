@@ -14,7 +14,9 @@
         <jersey2.version>2.23.2</jersey2.version>
         <jaxrs.version>2.0.1</jaxrs.version>
         <maven.war.version>2.1.1</maven.war.version>
-        <apache.commons.io>2.5</apache.commons.io>
+        <apache.commons.io.version>2.5</apache.commons.io.version>
+        <json.version>20090211</json.version>
+        <postgres.version>9.3-1100-jdbc4</postgres.version>
     </properties>
 
     <dependencies>
@@ -41,11 +43,27 @@
             <artifactId>jersey-client</artifactId>
             <version>${jersey2.version}</version>
         </dependency>
+        
+        <!-- Apache Commons IO -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>${apache.commons.io}</version>
+            <version>${apache.commons.io.version}</version>
         </dependency>
+        
+        <!-- JSON  -->
+        <dependency>
+    		<groupId>org.json</groupId>
+    		<artifactId>json</artifactId>
+    		<version>${json.version}</version>
+		</dependency>
+		
+		<!-- Postgresql  -->
+		<dependency>
+  			<groupId>org.postgresql</groupId>
+  			<artifactId>postgresql</artifactId>
+  			<version>${postgres.version}</version>
+		</dependency>
     </dependencies>
 
     <build>
