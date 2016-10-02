@@ -1,16 +1,13 @@
 package edu.usc.snapworld.service;
 
+import edu.usc.snapworld.util.CommonUtil;
+import edu.usc.snapworld.util.Constants;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import edu.usc.snapworld.util.CommonUtil;
-import edu.usc.snapworld.util.Constants;
 
 public class GetDbData {
 	
@@ -39,7 +36,7 @@ public class GetDbData {
 
 	        stmt = c.createStatement(); 
 	        ResultSet rs = stmt.executeQuery( "SELECT * FROM snapdata;" );
-	       dbData = convertToJSON(rs);
+	       dbData = CommonUtil.convertToJSON(rs, "GetData").toString();
 	       /* while ( rs.next() ) {
 	           int id = rs.getInt("id");
 	           String  name = rs.getString("names");
@@ -58,21 +55,6 @@ public class GetDbData {
 		return dbData;
 	
 	}
-	
-	public static String convertToJSON(ResultSet resultSet)
-            throws Exception {
-        JSONArray jsonArray = new JSONArray();
-        while (resultSet.next()) {
-            int total_rows = resultSet.getMetaData().getColumnCount();
-            JSONObject obj = new JSONObject();
-            for (int i = 0; i < total_rows; i++) {
-                obj.put(resultSet.getMetaData().getColumnLabel(i + 1).toLowerCase(), resultSet.getObject(i + 1));
-                
-            }
-            jsonArray.put(obj);
-        }
-        return jsonArray.toString();
-    }
 	
 	
 }

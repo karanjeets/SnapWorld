@@ -2,6 +2,9 @@ package edu.usc.snapworld.util;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -12,6 +15,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -117,6 +122,30 @@ public class CommonUtil {
         }
         sqlTimestamp = new Timestamp(date.getTime());
         return sqlTimestamp;
+    }
+
+    public static JSONObject convertToJSON(ResultSet resultSet, String objectName) {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        try {
+            while (resultSet.next()) {
+                int total_rows = resultSet.getMetaData().getColumnCount();
+                JSONObject obj = new JSONObject();
+                for (int i = 0; i < total_rows; i++) {
+                    obj.put(resultSet.getMetaData().getColumnLabel(i + 1).toLowerCase(), resultSet.getObject(i + 1));
+
+                }
+                jsonArray.put(obj);
+            }
+            jsonObject.put(objectName, jsonArray);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return jsonObject;
     }
 
     /**

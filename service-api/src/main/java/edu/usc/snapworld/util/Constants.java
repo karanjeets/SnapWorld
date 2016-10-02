@@ -6,10 +6,16 @@ package edu.usc.snapworld.util;
 public class Constants {
 
     public static final String CONFIG_FILENAME = "config.properties";
-    public static final String IMAGE_REPOSITORY = "image_repository";
+
+    // Application Constants
     public static final String IMAGE_EXT = ".jpg";
     public static final String TIMESTAMP_FORMAT = "yyyy-MM-dd-hh-mm-ss";
-    
+
+    // JSON Object Constants
+    public static final String JSON_CATEGORIES = "Categories";
+
+    // Config Properties Keys
+    public static final String IMAGE_REPOSITORY = "image_repository";
     public static final String SQL_DRIVER = "sql_driver";
     public static final String SQL_DATABASE = "sql_database";
     public static final String SQL_HOST = "sql_host";
