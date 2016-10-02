@@ -120,9 +120,10 @@ public class MainActivity extends Activity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             //return PlaceholderFragment.newInstance(position + 1);
             switch (position) {
-                case 0:
+                case 0:return PlaceholderFragment.newInstance(position + 1);
                 case 2:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    //return PlaceholderFragment.newInstance(position + 1);
+                    return ResultsFragment.newInstance();
                 case 1:
                     return CameraFragment.newInstance();
             }
