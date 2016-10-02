@@ -47,7 +47,7 @@ public class PutDbData {
             //pst.setDouble(3, Double.parseDouble(longitude));
             //pst.setDouble(4, Double.parseDouble(latitude));
             pst.setString(3, imgpath);
-            pst.setString(4, category);
+            pst.setInt(4, Integer.parseInt(category));
             pst.setString(5, description);
             pst.setTimestamp(6, CommonUtil.toSqlTimestamp(timestamp));
             pst.setString(7, latitude);
