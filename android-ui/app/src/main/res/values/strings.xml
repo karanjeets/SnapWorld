@@ -15,4 +15,5 @@
         <item>Education</item>
         <item>Nature</item>
     </string-array>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>
