@@ -7,7 +7,7 @@ import javax.ws.rs.PathParam;
 /**
  * Created by karanjeetsingh on 9/9/16.
  */
-
+@Path("/data")
 public class JerseyService {
 	@Path("/status")
     @GET
@@ -19,6 +19,13 @@ public class JerseyService {
     @GET
     public String getDetails() {
     	GetDbData conn = new GetDbData();
+    	String dbData = conn.getData();
+        return dbData;
+    }
+	@Path("/getcategory")
+    @GET
+    public String getCategoryValues() {
+    	GetCategoryData conn = new GetCategoryData();
     	String dbData = conn.getData();
         return dbData;
     }
