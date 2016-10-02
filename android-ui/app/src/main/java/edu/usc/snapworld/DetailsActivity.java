@@ -23,6 +23,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -63,6 +64,15 @@ public class DetailsActivity extends AppCompatActivity {
                 return;
             }
         }
+
+
+        String values[] = Constants.categoryMap.keySet().toArray(new String[Constants.categoryMap.size()]);
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
+// Application of the Array to the Spinner
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, values);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+        spinner.setAdapter(spinnerArrayAdapter);
 
 
         System.out.println("ByteBuffer nikal kaaka");
@@ -147,7 +157,9 @@ public class DetailsActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.textView);
         String description = editText.getText().toString();
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        String category = spinner.getSelectedItem().toString();
+        String category = Constants.categoryMap.get(spinner.getSelectedItem().toString())
+
+                ;
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
