@@ -126,8 +126,10 @@ public class CommonUtil {
         loadConfig();
     }
 
-    // Thanks to @yusufshakeel for this method.
-    // Reference - https://github.com/yusufshakeel/Java-Image-Processing-Project
+    /**
+     * Thanks to @yusufshakeel for this method.
+     * Reference - https://github.com/yusufshakeel/Java-Image-Processing-Project
+     */
     private static byte[] generateRandomImage() {
         //image dimension
         int width = 640;
@@ -152,7 +154,7 @@ public class CommonUtil {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
-            ImageIO.write(img, "jpg", baos);
+            ImageIO.write(img, Constants.IMAGE_EXT, baos);
         } catch (IOException e) {
             e.printStackTrace();
         }
