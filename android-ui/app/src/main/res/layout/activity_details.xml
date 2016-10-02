@@ -43,7 +43,7 @@
         android:layout_below="@+id/imageView"
         android:layout_alignParentStart="true" />
 
-    <android.support.v7.widget.Toolbar
+    <!--<android.support.v7.widget.Toolbar
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar"
         app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
@@ -51,9 +51,9 @@
         android:layout_height="50dp"
         android:background="@android:color/transparent">
 
-    </android.support.v7.widget.Toolbar>
+    </android.support.v7.widget.Toolbar>-->
 
-    <ImageButton
+    <!--<ImageButton
         android:layout_width="40dp"
         android:layout_gravity="left"
         android:layout_height="40dp"
@@ -61,7 +61,7 @@
         android:background="@drawable/wrong"
         android:clickable="true"
         android:layout_alignBottom="@+id/toolbar"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true" />-->
 
     <ImageButton
         android:layout_width="40dp"
