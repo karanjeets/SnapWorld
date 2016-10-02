@@ -14,6 +14,7 @@
         <jersey2.version>2.23.2</jersey2.version>
         <jaxrs.version>2.0.1</jaxrs.version>
         <maven.war.version>2.1.1</maven.war.version>
+        <apache.commons.io>2.5</apache.commons.io>
     </properties>
 
     <dependencies>
@@ -39,6 +40,11 @@
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
             <version>${jersey2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${apache.commons.io}</version>
         </dependency>
     </dependencies>
 
