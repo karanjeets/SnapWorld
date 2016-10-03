@@ -81,7 +81,7 @@ public class CommonUtil {
             e.printStackTrace();
             return null;
         }
-        return imagePath;
+        return (username + File.separator + timestamp + Constants.IMAGE_EXT);
     }
 
     /**
