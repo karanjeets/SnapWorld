@@ -1,8 +1,12 @@
 package edu.usc.snapworld.service;
 
+import edu.usc.snapworld.model.SnapData;
+import org.json.JSONException;
+
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 
 /**
  * Created by karanjeetsingh on 9/9/16.
@@ -29,12 +33,19 @@ public class JerseyService {
     	String dbData = conn.getData();
         return dbData;
     }
-	@Path("/putdata/{image}/{username}/{latitude}/{longitude}/{category}/{description}/{timestamp}")
-    @GET
-    public void putDetails(@PathParam("image") String image, @PathParam("username") String username, @PathParam("latitude") String latitude, @PathParam("longitude") String longitude, @PathParam("category") String category, @PathParam("description") String description, @PathParam("timestamp") String timestamp) {
+
+
+    @POST
+    @Path("/putdata")
+    @Consumes("application/json")
+    public void postDetails(SnapData data) throws JSONException {
     	PutDbData conn = new PutDbData();
-    	conn.putData(image.getBytes(), username,latitude,longitude,category,description,timestamp);
+        System.out.println(data.getImage());
+        System.out.println("Karan: " + data.getCategory());
+    	conn.putData(data.getImage().getBytes(), data.getUsername(),data.getLatitude(),data.getLongitude(),
+                data.getCategory(),data.getDescription(),data.getTimestamp());
         //return dbData;
+        //return Response.status(201).entity(data).build();
     }
 	
 }
