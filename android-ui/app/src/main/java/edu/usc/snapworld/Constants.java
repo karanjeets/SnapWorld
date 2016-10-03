@@ -1,5 +1,7 @@
 package edu.usc.snapworld;
 
+import android.graphics.Bitmap;
+
 import java.util.HashMap;
 
 /**

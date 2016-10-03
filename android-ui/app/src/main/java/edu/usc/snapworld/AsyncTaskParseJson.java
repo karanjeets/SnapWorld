@@ -1,5 +1,7 @@
 package edu.usc.snapworld;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -14,6 +16,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class AsyncTaskParseJson extends AsyncTask<String, String, JSONObject> {
     final String TAG = "AsyncTaskParseJson.java";
@@ -47,6 +51,16 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, JSONObject> {
         JSONParser jParser = new JSONParser();
         JSONObject json = new JSONObject();
         if(requestType == Constants.RequestType.GET_CATEGORY) {
+            /** Sample Code to Read Image from URL
+            try {
+                URL url = new URL("http://104.197.77.81/snapdata/monica/2016-10-02-23-42-05.jpg");
+                Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                Constants.temp = bitmap;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } **/
             json = jParser.getJSONFromUrl(url);
         } else if(requestType == Constants.RequestType.PUT_DETAILS) {
             try {
