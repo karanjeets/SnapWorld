@@ -43,7 +43,7 @@ public class JerseyService {
 
 
     @POST
-    @Path("/putdata")
+    @Path("/putdataold")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public void postDetails(SnapData data) {
     	PutDbData conn = new PutDbData();
@@ -57,7 +57,7 @@ public class JerseyService {
 
 
     @POST
-    @Path("/putdataform")
+    @Path("/putdata")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response postDetailsNew(@FormDataParam(Constants.JSON_IMAGE) InputStream imageStream,
                                    @FormDataParam(Constants.JSON_IMAGE) FormDataContentDisposition imageDetail,

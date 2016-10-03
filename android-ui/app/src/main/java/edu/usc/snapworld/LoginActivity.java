@@ -77,9 +77,9 @@ public class LoginActivity extends AppCompatActivity {
                 String url = "http://104.197.77.81:8080/snapworld/data/getcategory";
 
                 json.requestType = Constants.RequestType.GET_CATEGORY;
-                json.yourJsonStringUrl=url;
+                json.url=url;
 
-                System.out.println(json.yourJsonStringUrl);
+                System.out.println(json.url);
                 //JSONArray dataJsonArr = null;
 
                 json.execute();

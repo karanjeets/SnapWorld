@@ -29,11 +29,15 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.net.URI;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -260,30 +264,26 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put(Constants.IMAGE, imageString);
-            jsonObject.put(Constants.USERNAME, "monica");
-            jsonObject.put(Constants.LATITUDE, latitude);
-            jsonObject.put(Constants.LONGITUDE, longitude);
-            jsonObject.put(Constants.CATEGORY, category);
-            jsonObject.put(Constants.DESCRIPTION, description);
-            jsonObject.put(Constants.TIMESTAMP, timestamp);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.addBinaryBody(Constants.IMAGE, new ByteArrayInputStream(bytes),
+                ContentType.APPLICATION_OCTET_STREAM, "SnapWorld");
+        builder.addTextBody(Constants.USERNAME, "monica");
+        builder.addTextBody(Constants.LATITUDE, latitude);
+        builder.addTextBody(Constants.LONGITUDE, longitude);
+        builder.addTextBody(Constants.CATEGORY, category);
+        builder.addTextBody(Constants.DESCRIPTION, description);
+        builder.addTextBody(Constants.TIMESTAMP, timestamp);
 
         //String url = "http://104.197.77.81:8080/snapworld/data/putdata/"+imageString+"/monica/"+latitude+"/"+longitude+"/"+category+"/"+description+"/"+timestamp;
         //System.out.println(url);
        // http://104.197.77.81:8080/snapworld/data/putdata/{image}/{username}/{latitude}/{longitude}/{category}/{description}/{timestamp}
 
         String url = "http://104.197.77.81:8080/snapworld/data/putdata";
-        json.yourJsonStringUrl=url;
+        json.url=url;
         json.requestType = Constants.RequestType.PUT_DETAILS;
-        json.data = jsonObject;
+        json.data = builder;
 
-        System.out.println(json.yourJsonStringUrl);
+        System.out.println(json.url);
         //JSONArray dataJsonArr = null;
 
         json.execute();
