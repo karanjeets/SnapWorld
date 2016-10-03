@@ -5,7 +5,9 @@ import java.io.Serializable;
 
 /**
  * Created by karanjeetsingh on 10/2/16.
+ * Deprecated - Left for code preservation
  */
+@Deprecated
 @XmlRootElement
 public class SnapData implements Serializable {
     private String image;
