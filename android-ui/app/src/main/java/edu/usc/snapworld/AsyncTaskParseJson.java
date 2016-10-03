@@ -10,7 +10,11 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, JSONObject> {
     final String TAG = "AsyncTaskParseJson.java";
 
     String yourJsonStringUrl="";
-    
+
+    Constants.RequestType requestType;
+
+    JSONObject data = new JSONObject();
+
     JSONArray dataJsonArr = null;
 
 
@@ -31,18 +35,14 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, JSONObject> {
 
     @Override
     protected JSONObject doInBackground(String... arg0) {
-
-  
-            
-            JSONParser jParser = new JSONParser();
-
-
-            
-            JSONObject json = jParser.getJSONFromUrl(yourJsonStringUrl);
-
-            return json;
-
-      
+        JSONParser jParser = new JSONParser();
+        JSONObject json = new JSONObject();
+        if(requestType == Constants.RequestType.GET_CATEGORY) {
+            json = jParser.getJSONFromUrl(yourJsonStringUrl);
+        } else if(requestType == Constants.RequestType.PUT_DETAILS) {
+            json = jParser.postJSONFromUrl(yourJsonStringUrl, data);
+        }
+        return json;
     }
 
     @Override

@@ -9,4 +9,17 @@ import java.util.HashMap;
 public class Constants {
 
     static HashMap<String,String> categoryMap = new HashMap<>();
+
+    static String IMAGE = "image";
+    static String USERNAME = "username";
+    static String LATITUDE = "latitude";
+    static String LONGITUDE = "longitude";
+    static String CATEGORY = "category";
+    static String DESCRIPTION = "description";
+    static String TIMESTAMP = "timestamp";
+
+    enum RequestType {
+        GET_CATEGORY,
+        PUT_DETAILS
+    }
 }

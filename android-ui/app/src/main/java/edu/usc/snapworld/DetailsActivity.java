@@ -29,10 +29,16 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.net.URI;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 
 public class DetailsActivity extends AppCompatActivity {
     static Image img;
@@ -43,6 +49,10 @@ public class DetailsActivity extends AppCompatActivity {
     public String longitude;
     private LocationManager locationManager;
     private LocationListener locationListener;
+    JSONObject jsondata=null;
+    String imageString;
+    //String username = "";
+    Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +98,7 @@ public class DetailsActivity extends AppCompatActivity {
         ImageView imgView = (ImageView) findViewById(R.id.imageView);
         System.out.println("Bitmap banne jaa rhi hai....");
         //Log.i("YOOOO", "Bitmap banne jaa rhi hai....");
+        imageString = new String(bytes, StandardCharsets.UTF_8);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         System.out.println("Bitmap Ban gaya");
         //Log.i("YOOOO", "Bitmap Ban gaya");
@@ -157,9 +168,8 @@ public class DetailsActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.textView);
         String description = editText.getText().toString();
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        String category = Constants.categoryMap.get(spinner.getSelectedItem().toString())
-
-                ;
+        String category = Constants.categoryMap.get(spinner.getSelectedItem().toString());
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new java.util.Date());
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
@@ -214,6 +224,69 @@ public class DetailsActivity extends AppCompatActivity {
         {
             e.printStackTrace();
         }
+
+
+        AsyncTaskParseJson json = new AsyncTaskParseJson(new AsyncTaskParseJson.AsyncResponse() {
+
+
+            @Override
+
+            public void processFinish(JSONObject output) {
+                try {
+
+                    jsondata=output;
+                    // System.out.println("From MainActivity");
+                    //System.out.println(jsondata.getString("latitude"));
+                   /* JSONArray jsonarray = jsondata.getJSONArray("Categories");
+                    for (int i = 0; i < jsonarray.length(); i++) {
+                        JSONObject jsonobject = jsonarray.getJSONObject(i);
+                        String name = jsonobject.getString("name");
+                        String id = jsonobject.getString("id");
+                        Constants.categoryMap.put(name,id);
+
+                        //System.out.println(name);
+                    }*/
+                   // i.putExtra("username", username);
+                    //i.putExtra("categoryMap",categoryMap);
+                    //startActivity(i);
+
+                    System.out.println("Data sent");
+
+
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(Constants.IMAGE, imageString);
+            jsonObject.put(Constants.USERNAME, "monica");
+            jsonObject.put(Constants.LATITUDE, latitude);
+            jsonObject.put(Constants.LONGITUDE, longitude);
+            jsonObject.put(Constants.CATEGORY, category);
+            jsonObject.put(Constants.DESCRIPTION, description);
+            jsonObject.put(Constants.TIMESTAMP, timestamp);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //String url = "http://104.197.77.81:8080/snapworld/data/putdata/"+imageString+"/monica/"+latitude+"/"+longitude+"/"+category+"/"+description+"/"+timestamp;
+        //System.out.println(url);
+       // http://104.197.77.81:8080/snapworld/data/putdata/{image}/{username}/{latitude}/{longitude}/{category}/{description}/{timestamp}
+
+        String url = "http://104.197.77.81:8080/snapworld/data/putdata";
+        json.yourJsonStringUrl=url;
+        json.requestType = Constants.RequestType.PUT_DETAILS;
+        json.data = jsonObject;
+
+        System.out.println(json.yourJsonStringUrl);
+        //JSONArray dataJsonArr = null;
+
+        json.execute();
 
         Toast.makeText(DetailsActivity.this, latitude + longitude + description + category,Toast.LENGTH_LONG).show();
         finish();

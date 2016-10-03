@@ -5,15 +5,28 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptGroup;
 import android.util.Log;
 import org.json.JSONObject;
 
@@ -72,5 +85,34 @@ public class JSONParser {
 
         // return JSON String
         return jObj;
+    }
+
+    public JSONObject postJSONFromUrl(String url, JSONObject obj) {
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost(url);
+        HttpParams myParams = new BasicHttpParams();
+        HttpConnectionParams.setConnectionTimeout(myParams, 10000);
+        HttpConnectionParams.setSoTimeout(myParams, 10000);
+
+        String json=obj.toString();
+
+        try {
+
+            System.out.println(json);
+            HttpPost httppost = new HttpPost(url);
+            StringEntity se = new StringEntity(obj.toString(), "application/json");
+          ///se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            httppost.setEntity(se);
+            httppost.setHeader(HTTP.CONTENT_TYPE, "application/json");
+
+            HttpResponse response = httpClient.execute(httppost);
+            String temp = EntityUtils.toString(response.getEntity());
+            Log.i("tag", temp);
+
+        } catch (ClientProtocolException e) {
+
+        } catch (IOException e) {
+        }
+        return null;
     }
 }
