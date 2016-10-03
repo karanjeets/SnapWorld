@@ -17,7 +17,7 @@ public class GetDbData {
 		configProperties = CommonUtil.configProperties;
 	}
 	
-	public String getData()
+	public String getData(String latitude, String longitude)
 	{
 		Connection c = null;
 	      Statement stmt = null;
@@ -36,7 +36,7 @@ public class GetDbData {
 
 	        stmt = c.createStatement(); 
 	        ResultSet rs = stmt.executeQuery( "SELECT * FROM snapdata;" );
-	       dbData = CommonUtil.convertToJSON(rs, "GetData").toString();
+	       dbData = CommonUtil.convertToJSON(rs, Constants.JSON_SNAPDATA).toString();
 	       /* while ( rs.next() ) {
 	           int id = rs.getInt("id");
 	           String  name = rs.getString("names");

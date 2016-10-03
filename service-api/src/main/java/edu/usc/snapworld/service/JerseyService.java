@@ -10,6 +10,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
@@ -26,11 +27,11 @@ public class JerseyService {
         return "Jersey 2 is running fine...";
     }
 	
-	@Path("/getdata")
+	@Path("/getdata/{latitude}/{longitude}")
     @GET
-    public String getDetails() {
+    public String getDetails(@PathParam("latitude") String latitude, @PathParam("longitude") String longitude) {
     	GetDbData conn = new GetDbData();
-    	String dbData = conn.getData();
+    	String dbData = conn.getData(latitude, longitude);
         return dbData;
     }
 	@Path("/getcategory")

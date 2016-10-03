@@ -13,6 +13,7 @@ public class Constants {
 
     // JSON Object Constants
     public static final String JSON_CATEGORIES = "Categories";
+    public static final String JSON_SNAPDATA = "Snapdata";
     public static final String JSON_IMAGE = "image";
     public static final String JSON_USERNAME = "username";
     public static final String JSON_LATITUDE = "latitude";
