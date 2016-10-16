@@ -19,9 +19,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+import static edu.usc.snapworld.Constants.jsonListArray;
 
 public class LoginActivity extends AppCompatActivity {
     JSONObject jsondata=null;
+    JSONObject jsonListata = null;
     String username = "";
     Intent i;
 
@@ -41,6 +43,38 @@ public class LoginActivity extends AppCompatActivity {
                 EditText a = (EditText) findViewById(R.id.username);
                 username = a.getText().toString();
                 i = new Intent(LoginActivity.this, MainActivity.class);
+
+                AsyncTaskParseJson jsonList = new AsyncTaskParseJson(new AsyncTaskParseJson.AsyncResponse() {
+
+
+                    @Override
+
+                    public void processFinish(JSONObject output) {
+                        try {
+
+                            jsonListata=output;
+                            // System.out.println("From MainActivity");
+                            //System.out.println(jsondata.getString("latitude"));
+                            Constants.jsonListArray = jsonListata.getJSONArray("Snapdata");
+
+
+
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                String jsonListUrl = "http://104.197.77.81:8080/snapworld/data/getdata/0/0";
+
+                jsonList.requestType = Constants.RequestType.GET;
+                jsonList.url=jsonListUrl;
+
+                System.out.println(jsonList.url);
+                //JSONArray dataJsonArr = null;
+
+                jsonList.execute();
 
                 AsyncTaskParseJson json = new AsyncTaskParseJson(new AsyncTaskParseJson.AsyncResponse() {
 
@@ -76,13 +110,15 @@ public class LoginActivity extends AppCompatActivity {
 
                 String url = "http://104.197.77.81:8080/snapworld/data/getcategory";
 
-                json.requestType = Constants.RequestType.GET_CATEGORY;
+                json.requestType = Constants.RequestType.GET;
                 json.url=url;
 
                 System.out.println(json.url);
                 //JSONArray dataJsonArr = null;
 
                 json.execute();
+
+
 
 
             }

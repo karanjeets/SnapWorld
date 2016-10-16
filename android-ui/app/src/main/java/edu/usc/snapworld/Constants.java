@@ -2,6 +2,8 @@ package edu.usc.snapworld;
 
 import android.graphics.Bitmap;
 
+import org.json.JSONArray;
+
 import java.util.HashMap;
 
 /**
@@ -19,9 +21,10 @@ public class Constants {
     static String CATEGORY = "category";
     static String DESCRIPTION = "description";
     static String TIMESTAMP = "timestamp";
+    static JSONArray jsonListArray ;
 
     enum RequestType {
-        GET_CATEGORY,
+        GET,
         PUT_DETAILS
     }
 }

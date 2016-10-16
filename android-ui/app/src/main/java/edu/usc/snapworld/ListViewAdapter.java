@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Monica on 10/1/2016.
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 public class ListViewAdapter extends ArrayAdapter {
     private Context context;
     private int layoutResourceId;
-    private ArrayList data = new ArrayList();
+    private List<ListItemWrapper> data = Collections.synchronizedList(new ArrayList<ListItemWrapper>());
 
     public ListViewAdapter(Context context, int layoutResourceId, ArrayList data) {
         super(context, layoutResourceId, data);
@@ -53,6 +55,10 @@ public class ListViewAdapter extends ArrayAdapter {
         holder.imageDesc.setText(item.getDescription());
         holder.image.setImageBitmap(item.getImage());
         return eachRow;
+    }
+
+    public List<ListItemWrapper> getData() {
+        return data;
     }
 
     static class ListViewHolder {

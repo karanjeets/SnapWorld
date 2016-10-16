@@ -50,7 +50,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, JSONObject> {
     protected JSONObject doInBackground(String... arg0) {
         JSONParser jParser = new JSONParser();
         JSONObject json = new JSONObject();
-        if(requestType == Constants.RequestType.GET_CATEGORY) {
+        if(requestType == Constants.RequestType.GET) {
             /** Sample Code to Read Image from URL
             try {
                 URL url = new URL("http://104.197.77.81/snapdata/monica/2016-10-02-23-42-05.jpg");

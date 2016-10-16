@@ -100,8 +100,9 @@ public class JSONParser {
 
             System.out.println(json);
             HttpPost httppost = new HttpPost(url);
-            StringEntity se = new StringEntity(obj.toString(), "application/json");
+            StringEntity se = new StringEntity(obj.toString(),"UTF-8");
           ///se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            System.out.println(se);
             httppost.setEntity(se);
             httppost.setHeader(HTTP.CONTENT_TYPE, "application/json");
 
