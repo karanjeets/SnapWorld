@@ -1,11 +1,24 @@
 package edu.usc.snapworld;
 
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.provider.Settings;
+import android.support.annotation.RequiresApi;
+import android.support.v13.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +44,13 @@ public class ResultsFragment extends Fragment {
     private ListViewAdapter listViewAdapter;
     ArrayList<ListItemWrapper> imageItems = new ArrayList<>();
     private Bitmap bitmap;
+    public Criteria criteria;
+    public String bestProvider;
+    public String latitude;
+    public String longitude;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+    JSONObject jsonListata = null;
     //JSONObject jsondata=null;
     //static JSONArray jsonarray= null;
 
@@ -48,6 +68,93 @@ public class ResultsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_results, container, false);
         listView = (ListView) view.findViewById(R.id.imageList);
+
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+            @TargetApi(Build.VERSION_CODES.M)
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onLocationChanged(Location location) {
+
+                if (ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                    locationManager.removeUpdates(this);
+
+                //open the map:
+                latitude = Double.toString(location.getLatitude());
+                longitude = Double.toString( location.getLongitude());
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+
+        };
+        criteria = new Criteria();
+        bestProvider = String.valueOf(locationManager.getBestProvider(criteria, true)).toString();
+
+
+        try {
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if(location !=null)
+            {
+                latitude = Double.toString(location.getLatitude());
+                longitude = Double.toString(location.getLongitude());
+            }
+
+            else
+            {
+                locationManager.requestLocationUpdates(bestProvider,1000,0,locationListener);
+            }
+        }
+        catch(SecurityException e)
+        {
+            e.printStackTrace();
+        }
+
+        AsyncTaskParseJson jsonList = new AsyncTaskParseJson(new AsyncTaskParseJson.AsyncResponse() {
+
+
+            @Override
+
+            public void processFinish(JSONObject output) {
+                try {
+
+                    jsonListata=output;
+                    // System.out.println("From MainActivity");
+                    //System.out.println(jsondata.getString("latitude"));
+                    Constants.jsonListArray = jsonListata.getJSONArray("Snapdata");
+
+
+
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        String jsonListUrl = "http://104.197.77.81:8080/snapworld/data/getdata/"+latitude+"/"+longitude;
+
+        jsonList.requestType = Constants.RequestType.GET;
+        jsonList.url=jsonListUrl;
+
+        System.out.println(jsonList.url);
+        //JSONArray dataJsonArr = null;
+
+        jsonList.execute();
+
         imageItems = new ArrayList<>();
         listViewAdapter = new ListViewAdapter(getActivity(), R.layout.list_item_layout, imageItems);
         listView.setAdapter(listViewAdapter);
