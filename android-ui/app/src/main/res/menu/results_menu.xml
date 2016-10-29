@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+        <item android:id="@+id/menu_his"
+            android:title="History and Culture"
+            android:visible="true"
+            app:showAsAction="ifRoom|withText" />
+        <item android:id="@+id/menu_nature"
+            android:title="Nature"
+            android:visible="true"
+            app:showAsAction="ifRoom|withText" />
+        <item android:id="@+id/menu_edu"
+            android:title="Education"
+            android:visible="true"
+            app:showAsAction="ifRoom|withText" />
+        <item android:id="@+id/menu_sports"
+            android:title="Sports"
+            android:visible="true"
+            app:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/menu_food"
+        android:title="Food"
+        android:visible="true"
+        app:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/menu_general"
+        android:title="General"
+        android:visible="true"
+        app:showAsAction="ifRoom|withText" />
+    </menu>
+

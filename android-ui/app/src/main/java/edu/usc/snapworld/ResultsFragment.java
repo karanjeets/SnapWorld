@@ -20,6 +20,9 @@ import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v13.app.ActivityCompat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -66,6 +69,9 @@ public class ResultsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
+
         View view =  inflater.inflate(R.layout.fragment_results, container, false);
         listView = (ListView) view.findViewById(R.id.imageList);
 
@@ -167,6 +173,22 @@ public class ResultsFragment extends Fragment {
 
         return view;
 
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+       /*MenuItem filter = menu.add("Category");
+        filter.setIcon(R.drawable.correct); */
+       // System.out.println("OptionsMenu");
+        inflater.inflate(R.menu.results_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
 
     }
 
