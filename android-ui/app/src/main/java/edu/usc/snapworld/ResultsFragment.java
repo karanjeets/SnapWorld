@@ -51,6 +51,7 @@ public class ResultsFragment extends Fragment {
     public String bestProvider;
     public String latitude;
     public String longitude;
+    public String categorySelected = "general";
     private LocationManager locationManager;
     private LocationListener locationListener;
     JSONObject jsonListata = null;
@@ -192,55 +193,133 @@ public class ResultsFragment extends Fragment {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_general:
+                categorySelected = "general";
+                refreshData();
+                return true;
+
+            case R.id.menu_food:
+                categorySelected = "food";
+                refreshData();
+                return true;
+        }
+        return true;
+    }
+
     private void makeData() {
         String imgUrl;
 
         for (int i = 0; i < Constants.jsonListArray.length(); i++) {
-            try {
-              final  JSONObject jsonobject = Constants.jsonListArray.getJSONObject(i);
-                DownloadImageTask imgTask = new DownloadImageTask(new DownloadImageTask.ImgAsyncResponse() {
 
-                    @Override
-                    public void processFinish(Bitmap output) {
-                        bitmap = output;
-                        System.out.println("Inside Process Finish");
-                        try {
-                            ListViewAdapter adapter = (ListViewAdapter) listView.getAdapter();
-                            adapter.getData().add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category"), "0.3 miles"));
-                            adapter.notifyDataSetChanged();
+                try {
 
-                            //imageItems.add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category"), "0.3 miles"));
-                            System.out.println("inside Thread " + jsonobject.getString("description"));
+                    final JSONObject jsonobject = Constants.jsonListArray.getJSONObject(i);
+                    //if ((categorySelected == "general") || (categorySelected.toLowerCase() == jsonobject.getString("category_name").toLowerCase())) {
 
-                        }
-                        catch (JSONException e)
-                        {
-                            e.printStackTrace();
-                        }
+                        DownloadImageTask imgTask = new DownloadImageTask(new DownloadImageTask.ImgAsyncResponse() {
+
+                            @Override
+                            public void processFinish(Bitmap output) {
+                                bitmap = output;
+                                System.out.println("Inside Process Finish");
+                                try {
+                                    ListViewAdapter adapter = (ListViewAdapter) listView.getAdapter();
+                                    adapter.getData().add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category_name"),jsonobject.getString("road_distance")));
+                                    adapter.notifyDataSetChanged();
+
+                                    //imageItems.add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category"), "0.3 miles"));
+                                    System.out.println("inside Thread " + jsonobject.getString("description"));
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+
+                        //URL url = new URL("http://104.197.77.81/snapdata/" + jsonobject.getString("imgpath"));
+
+                        //imgTask.requestType = Constants.RequestType.GET;
+                        imgUrl = "http://104.197.77.81/snapdata/" + jsonobject.getString("imgpath");
+                        imgTask.urlString = imgUrl;
+
+                        System.out.println(imgTask.urlString);
+                        //JSONArray dataJsonArr = null;
+
+                        imgTask.execute();
                     }
-                });
+
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+        }
 
 
-                //URL url = new URL("http://104.197.77.81/snapdata/" + jsonobject.getString("imgpath"));
+            System.out.println("Imageitems" + imageItems);
 
-                //imgTask.requestType = Constants.RequestType.GET;
-                imgUrl = "http://104.197.77.81/snapdata/" + jsonobject.getString("imgpath");
-                imgTask.urlString = imgUrl;
 
-                System.out.println(imgTask.urlString);
-                //JSONArray dataJsonArr = null;
+    }
 
-                imgTask.execute();
+    private void refreshData() {
+        String imgUrl;
+        ListViewAdapter adapter = (ListViewAdapter) listView.getAdapter();
+        adapter.clear();
+
+        for (int i = 0; i < Constants.jsonListArray.length(); i++) {
+
+            try {
+
+                final JSONObject jsonobject = Constants.jsonListArray.getJSONObject(i);
+               // System.out.println();
+                System.out.println(categorySelected);
+                System.out.println(jsonobject.getString("category_name"));
+                if ((categorySelected == "general") || (categorySelected.equalsIgnoreCase(jsonobject.getString("category_name")))) {
+
+                    DownloadImageTask imgTask = new DownloadImageTask(new DownloadImageTask.ImgAsyncResponse() {
+
+                        @Override
+                        public void processFinish(Bitmap output) {
+                            bitmap = output;
+                            System.out.println("Inside Process Finish");
+                            try {
+                                ListViewAdapter adapter = (ListViewAdapter) listView.getAdapter();
+                                adapter.getData().add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category_name"), jsonobject.getString("road_distance")));
+                                adapter.notifyDataSetChanged();
+
+                                //imageItems.add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category"), "0.3 miles"));
+                                System.out.println("inside Thread " + jsonobject.getString("description"));
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+
+                    //URL url = new URL("http://104.197.77.81/snapdata/" + jsonobject.getString("imgpath"));
+
+                    //imgTask.requestType = Constants.RequestType.GET;
+                    imgUrl = "http://104.197.77.81/snapdata/" + jsonobject.getString("imgpath");
+                    imgTask.urlString = imgUrl;
+
+                    System.out.println(imgTask.urlString);
+                    //JSONArray dataJsonArr = null;
+
+                    imgTask.execute();
+                }
             }
             catch (JSONException e)
             {
                 e.printStackTrace();
             }
-
-
         }
 
-        System.out.println("Imageitems"+imageItems);
+
+        System.out.println("Imageitems" + imageItems);
 
 
     }
