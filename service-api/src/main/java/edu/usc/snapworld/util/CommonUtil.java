@@ -124,6 +124,12 @@ public class CommonUtil {
         return sqlTimestamp;
     }
 
+    /**
+     * Convert a ResultSet to JSON Object
+     * @param resultSet
+     * @param objectName
+     * @return
+     */
     public static JSONObject convertToJSON(ResultSet resultSet, String objectName) {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();

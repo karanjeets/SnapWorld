@@ -34,8 +34,16 @@ public class GetDbData {
 		    c.setAutoCommit(false);
 	        System.out.println("Opened database successfully");
 
-	        stmt = c.createStatement(); 
-	        ResultSet rs = stmt.executeQuery( "SELECT * FROM snapdata;" );
+	        stmt = c.createStatement();
+
+	        ResultSet rs = stmt.executeQuery("SELECT T.* FROM (SELECT *, (SELECT SUM(di.cost)*69 FROM pgr_dijkstra('SELECT id, source, " +
+                    "target, st_length(geom_way) as cost FROM hh_2po_4pgr', S.osmid::int, " +
+                    "(select target from hh_2po_4pgr order by st_distance(geom_way, " +
+                    "st_setsrid(st_makepoint(" + longitude + ", " + latitude + "), 4326)) limit 1), false, false) as di " +
+                    "JOIN hh_2po_4pgr ON di.id2 = hh_2po_4pgr.id) as road_distance FROM snapdata S " +
+                    "ORDER BY coordinate <-> st_setsrid(ST_MakePoint(" + longitude + "," + latitude + "),4326) LIMIT 15) " +
+                    "AS T ORDER BY T.road_distance;" );
+
 	       dbData = CommonUtil.convertToJSON(rs, Constants.JSON_SNAPDATA).toString();
 	       /* while ( rs.next() ) {
 	           int id = rs.getInt("id");
