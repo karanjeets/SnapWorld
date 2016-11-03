@@ -515,7 +515,7 @@ public class CameraFragment extends Fragment
                 Size largest = Collections.max(
                         Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)),
                         new CompareSizesByArea());
-                mImageReader = ImageReader.newInstance(10, 10,
+                mImageReader = ImageReader.newInstance(1600, 1600,
                         ImageFormat.JPEG, /*maxImages*/2);
                 mImageReader.setOnImageAvailableListener(
                         mOnImageAvailableListener, mBackgroundHandler);
@@ -568,19 +568,26 @@ public class CameraFragment extends Fragment
                 // Danger, W.R.! Attempting to use too large a preview size could  exceed the camera
                 // bus' bandwidth limitation, resulting in gorgeous previews but the storage of
                 // garbage capture data.
+                Log.i("Camera Max Size: ", maxPreviewWidth + " " + maxPreviewHeight);
+                Log.i("Surface Size: ", rotatedPreviewWidth + " " + rotatedPreviewHeight);
                 mPreviewSize = chooseOptimalSize(map.getOutputSizes(SurfaceTexture.class),
                         rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth,
                         maxPreviewHeight, largest);
 
+                Log.i("Camera Size: ", mPreviewSize.getWidth() + " " + mPreviewSize.getHeight());
+
+
                 // We fit the aspect ratio of TextureView to the size of preview we picked.
                 int orientation = getResources().getConfiguration().orientation;
-                /*if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    mTextureView.setAspectRatio(
-                            mPreviewSize.getWidth(), mPreviewSize.getHeight());
+                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    mTextureView.getSurfaceTexture().setDefaultBufferSize(mPreviewSize.getWidth(), mPreviewSize.getHeight());
+                    //mTextureView.setAspectRatio(
+                    //        mPreviewSize.getWidth(), mPreviewSize.getHeight());
                 } else {
-                    mTextureView.setAspectRatio(
-                            mPreviewSize.getHeight(), mPreviewSize.getWidth());
-                }*/
+                    mTextureView.getSurfaceTexture().setDefaultBufferSize(mPreviewSize.getWidth(), mPreviewSize.getHeight());
+                    //mTextureView.setAspectRatio(
+                    //        mPreviewSize.getHeight(), mPreviewSize.getWidth());
+                }
 
                 // Check if the flash is supported.
                 Boolean available = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
