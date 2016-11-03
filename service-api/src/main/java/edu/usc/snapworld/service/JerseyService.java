@@ -26,7 +26,8 @@ public class JerseyService {
     public String getMessage() {
         return "Jersey 2 is running fine...";
     }
-	
+
+
 	@Path("/getdata/{latitude}/{longitude}")
     @GET
     public String getDetails(@PathParam("latitude") String latitude, @PathParam("longitude") String longitude) {
@@ -34,6 +35,8 @@ public class JerseyService {
     	String dbData = conn.getData(latitude, longitude);
         return dbData;
     }
+
+
 	@Path("/getcategory")
     @GET
     public String getCategoryValues() {
