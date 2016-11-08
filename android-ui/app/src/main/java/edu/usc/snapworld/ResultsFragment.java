@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v13.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -75,6 +76,102 @@ public class ResultsFragment extends Fragment {
 
         View view =  inflater.inflate(R.layout.fragment_results, container, false);
         listView = (ListView) view.findViewById(R.id.imageList);
+        FloatingActionButton filters = (FloatingActionButton) view.findViewById(R.id.fab);
+       final FloatingActionButton general = (FloatingActionButton) view.findViewById(R.id.fab_general);
+        final FloatingActionButton food = (FloatingActionButton) view.findViewById(R.id.fab_food);
+        final FloatingActionButton nature = (FloatingActionButton) view.findViewById(R.id.fab_nature);
+        final FloatingActionButton his = (FloatingActionButton) view.findViewById(R.id.fab_his);
+        final FloatingActionButton education = (FloatingActionButton) view.findViewById(R.id.fab_education);
+        final FloatingActionButton sports = (FloatingActionButton) view.findViewById(R.id.fab_sports);
+
+        filters.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                if (general.getVisibility() == View.VISIBLE) {
+                    general.setVisibility(View.GONE);
+                    food.hide();
+                    sports.hide();
+                    his.hide();
+                    education.hide();
+                    nature.hide();
+                } else {
+                    general.setVisibility(View.VISIBLE);
+                    food.show();
+                    sports.show();
+                    his.show();
+                    education.show();
+                    nature.show();
+                }
+                //Toast.makeText(getActivity(),"you clicked filters",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        general.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                categorySelected = "general";
+                refreshData();
+                //Toast.makeText(getActivity(),"you clicked food",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        food.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                categorySelected = "food";
+                refreshData();
+                //Toast.makeText(getActivity(),"you clicked food",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        sports.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                categorySelected = "sports";
+                refreshData();
+                //Toast.makeText(getActivity(),"you clicked food",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        nature.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                categorySelected = "nature";
+                refreshData();
+                //Toast.makeText(getActivity(),"you clicked food",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        education.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                categorySelected = "education";
+                refreshData();
+                //Toast.makeText(getActivity(),"you clicked food",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        his.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                categorySelected = "History & Culture";
+                refreshData();
+                //Toast.makeText(getActivity(),"you clicked food",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
@@ -205,6 +302,26 @@ public class ResultsFragment extends Fragment {
                 categorySelected = "food";
                 refreshData();
                 return true;
+
+            case R.id.menu_nature:
+                categorySelected = "nature";
+                refreshData();
+                return true;
+
+            case R.id.menu_sports:
+                categorySelected = "sports";
+                refreshData();
+                return true;
+
+            case R.id.menu_edu:
+                categorySelected = "education";
+                refreshData();
+                return true;
+
+            case R.id.menu_his:
+                categorySelected = "History & Culture";
+                refreshData();
+                return true;
         }
         return true;
     }
@@ -227,7 +344,7 @@ public class ResultsFragment extends Fragment {
                                 System.out.println("Inside Process Finish");
                                 try {
                                     ListViewAdapter adapter = (ListViewAdapter) listView.getAdapter();
-                                    adapter.getData().add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category_name"),jsonobject.getString("road_distance")));
+                                    adapter.getData().add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category_name"),jsonobject.getString("road_distance").substring(0,4)+" miles"));
                                     adapter.notifyDataSetChanged();
 
                                     //imageItems.add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category"), "0.3 miles"));
@@ -287,7 +404,7 @@ public class ResultsFragment extends Fragment {
                             System.out.println("Inside Process Finish");
                             try {
                                 ListViewAdapter adapter = (ListViewAdapter) listView.getAdapter();
-                                adapter.getData().add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category_name"), jsonobject.getString("road_distance")));
+                                adapter.getData().add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category_name"), jsonobject.getString("road_distance").substring(0,4)+" miles"));
                                 adapter.notifyDataSetChanged();
 
                                 //imageItems.add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category"), "0.3 miles"));

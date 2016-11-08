@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -33,6 +34,7 @@ public class MainActivity extends Activity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    ResultsFragment resultsFragment;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -136,6 +138,7 @@ public class MainActivity extends Activity {
                 case 0:return PlaceholderFragment.newInstance(position + 1);
                 case 2:
                     //return PlaceholderFragment.newInstance(position + 1);
+                    resultsFragment = ResultsFragment.newInstance();
                     return ResultsFragment.newInstance();
                 case 1:
                     return CameraFragment.newInstance();
@@ -162,4 +165,5 @@ public class MainActivity extends Activity {
             return null;
         }
     }
+
 }

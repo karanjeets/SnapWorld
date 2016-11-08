@@ -2,8 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="edu.usc.snapworld.ResultsFragment"
-    android:background="@color/lightblue">
+    android:background="@color/white">
+
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -19,5 +21,115 @@
         android:backgroundTintMode="add"
         android:fadeScrollbars="true"
         />
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_dialog_info"
+            />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_general"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:src="@android:drawable/ic_dialog_info"
+            app:layout_anchor="@id/fab"
+            android:visibility="gone"
+            app:layout_anchorGravity="top"
+            />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:src="@android:drawable/ic_dialog_info"
+            app:layout_anchor="@id/fab_general"
+            android:visibility="gone"
+            app:layout_anchorGravity="top"
+            />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_sports"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:src="@android:drawable/ic_dialog_info"
+            app:layout_anchor="@id/fab_food"
+            android:visibility="gone"
+            app:layout_anchorGravity="top"
+            />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_his"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:src="@android:drawable/ic_dialog_info"
+            app:layout_anchor="@id/fab_sports"
+            android:visibility="gone"
+            app:layout_anchorGravity="top"
+            />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_education"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:src="@android:drawable/ic_dialog_info"
+            app:layout_anchor="@id/fab_his"
+            android:visibility="gone"
+            app:layout_anchorGravity="top"
+            />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_nature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:src="@android:drawable/ic_dialog_info"
+            app:layout_anchor="@id/fab_education"
+            android:visibility="gone"
+            app:layout_anchorGravity="top"
+            />
+    </android.support.design.widget.CoordinatorLayout>
 
 </FrameLayout>
