@@ -278,7 +278,7 @@ public class DetailsActivity extends AppCompatActivity {
         //System.out.println(url);
        // http://104.197.77.81:8080/snapworld/data/putdata/{image}/{username}/{latitude}/{longitude}/{category}/{description}/{timestamp}
 
-        String url = "http://104.197.77.81:8080/snapworld/data/putdata";
+        String url = "http://104.198.60.184:8080/snapworld/data/putdata";
         json.url=url;
         json.requestType = Constants.RequestType.PUT_DETAILS;
         json.data = builder;

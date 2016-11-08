@@ -170,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-                String jsonListUrl = "http://104.197.77.81:8080/snapworld/data/getdata/"+latitude+"/"+longitude;
+                String jsonListUrl = "http://104.198.60.184:8080/snapworld/data/getdata/"+latitude+"/"+longitude;
 
                 jsonList.requestType = Constants.RequestType.GET;
                 jsonList.url=jsonListUrl;
@@ -212,7 +212,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-                String url = "http://104.197.77.81:8080/snapworld/data/getcategory";
+                String url = "http://104.198.60.184:8080/snapworld/data/getcategory";
 
                 json.requestType = Constants.RequestType.GET;
                 json.url=url;

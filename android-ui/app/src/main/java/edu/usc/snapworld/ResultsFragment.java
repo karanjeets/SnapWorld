@@ -13,6 +13,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -27,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -77,12 +79,12 @@ public class ResultsFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_results, container, false);
         listView = (ListView) view.findViewById(R.id.imageList);
         FloatingActionButton filters = (FloatingActionButton) view.findViewById(R.id.fab);
-       final FloatingActionButton general = (FloatingActionButton) view.findViewById(R.id.fab_general);
-        final FloatingActionButton food = (FloatingActionButton) view.findViewById(R.id.fab_food);
-        final FloatingActionButton nature = (FloatingActionButton) view.findViewById(R.id.fab_nature);
-        final FloatingActionButton his = (FloatingActionButton) view.findViewById(R.id.fab_his);
-        final FloatingActionButton education = (FloatingActionButton) view.findViewById(R.id.fab_education);
-        final FloatingActionButton sports = (FloatingActionButton) view.findViewById(R.id.fab_sports);
+       final ImageButton general = (ImageButton) view.findViewById(R.id.fab_general);
+        final ImageButton food = (ImageButton) view.findViewById(R.id.fab_food);
+        final ImageButton nature = (ImageButton) view.findViewById(R.id.fab_nature);
+        final ImageButton his = (ImageButton) view.findViewById(R.id.fab_his);
+        final ImageButton education = (ImageButton) view.findViewById(R.id.fab_education);
+        final ImageButton sports = (ImageButton) view.findViewById(R.id.fab_sports);
 
         filters.setOnClickListener(new View.OnClickListener()
         {
@@ -90,18 +92,18 @@ public class ResultsFragment extends Fragment {
             public void onClick(View v) {
                 if (general.getVisibility() == View.VISIBLE) {
                     general.setVisibility(View.GONE);
-                    food.hide();
-                    sports.hide();
-                    his.hide();
-                    education.hide();
-                    nature.hide();
+                    food.setVisibility(View.GONE);
+                    sports.setVisibility(View.GONE);
+                    his.setVisibility(View.GONE);
+                    education.setVisibility(View.GONE);
+                    nature.setVisibility(View.GONE);
                 } else {
                     general.setVisibility(View.VISIBLE);
-                    food.show();
-                    sports.show();
-                    his.show();
-                    education.show();
-                    nature.show();
+                    food.setVisibility(View.VISIBLE);
+                    sports.setVisibility(View.VISIBLE);
+                    his.setVisibility(View.VISIBLE);
+                    education.setVisibility(View.VISIBLE);
+                    nature.setVisibility(View.VISIBLE);
                 }
                 //Toast.makeText(getActivity(),"you clicked filters",Toast.LENGTH_SHORT).show();
             }
@@ -249,7 +251,7 @@ public class ResultsFragment extends Fragment {
             }
         });
 
-        String jsonListUrl = "http://104.197.77.81:8080/snapworld/data/getdata/"+latitude+"/"+longitude;
+        String jsonListUrl = "http://104.198.60.184:8080/snapworld/data/getdata/"+latitude+"/"+longitude;
 
         jsonList.requestType = Constants.RequestType.GET;
         jsonList.url=jsonListUrl;
@@ -360,7 +362,7 @@ public class ResultsFragment extends Fragment {
                         //URL url = new URL("http://104.197.77.81/snapdata/" + jsonobject.getString("imgpath"));
 
                         //imgTask.requestType = Constants.RequestType.GET;
-                        imgUrl = "http://104.197.77.81/snapdata/" + jsonobject.getString("imgpath");
+                        imgUrl = "http://104.198.60.184/snapdata/" + jsonobject.getString("imgpath");
                         imgTask.urlString = imgUrl;
 
                         System.out.println(imgTask.urlString);
@@ -420,7 +422,7 @@ public class ResultsFragment extends Fragment {
                     //URL url = new URL("http://104.197.77.81/snapdata/" + jsonobject.getString("imgpath"));
 
                     //imgTask.requestType = Constants.RequestType.GET;
-                    imgUrl = "http://104.197.77.81/snapdata/" + jsonobject.getString("imgpath");
+                    imgUrl = "http://104.198.60.184/snapdata/" + jsonobject.getString("imgpath");
                     imgTask.urlString = imgUrl;
 
                     System.out.println(imgTask.urlString);
