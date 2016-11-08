@@ -288,7 +288,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         json.execute();
 
-        Toast.makeText(DetailsActivity.this, latitude + longitude + description + category,Toast.LENGTH_LONG).show();
+        //Toast.makeText(DetailsActivity.this, latitude + longitude + description + category,Toast.LENGTH_LONG).show();
         finish();
     }
 

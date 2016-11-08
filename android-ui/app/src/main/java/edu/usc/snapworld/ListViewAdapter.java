@@ -2,6 +2,7 @@ package edu.usc.snapworld;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,11 @@ public class ListViewAdapter extends ArrayAdapter {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             eachRow = inflater.inflate(layoutResourceId, parent, false);
             holder = new ListViewHolder();
+
+                eachRow.setBackgroundColor(Color.parseColor("#feeaef"));
+
+                //eachRow.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
             holder.imageDesc = (TextView) eachRow.findViewById(R.id.gridDesc);
             holder.imageCategory = (TextView) eachRow.findViewById(R.id.gridCategory);
             holder.imageDistance = (TextView) eachRow.findViewById(R.id.gridDistance);
@@ -50,6 +56,7 @@ public class ListViewAdapter extends ArrayAdapter {
         }
 
         ListItemWrapper item = (ListItemWrapper)data.get(position);
+
         holder.imageCategory.setText(item.getCategory());
         holder.imageDistance.setText(item.getDistance());
         holder.imageDesc.setText(item.getDescription());

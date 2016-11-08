@@ -10,6 +10,9 @@
     <color name="gray">#666666</color>
     <color name="green">#11AA11</color>
     <color name="black">#080808</color>
+    <color name="light_red">#c19595</color>
+    <color name="medium_red">#d78484</color>
+    <color name="pink">#feeaef</color>
     <color name="white">#FFFFFF</color>
 
 </resources>
