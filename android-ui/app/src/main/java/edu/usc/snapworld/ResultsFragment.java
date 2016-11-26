@@ -62,6 +62,7 @@ public class ResultsFragment extends Fragment {
     private LocationListener locationListener;
     JSONObject jsonListata = null;
     private  static SeekBar seek_bar;
+    private static TextView distanceLabel;
     //JSONObject jsondata=null;
     //static JSONArray jsonarray= null;
 
@@ -90,6 +91,7 @@ public class ResultsFragment extends Fragment {
         final ImageButton education = (ImageButton) view.findViewById(R.id.fab_education);
         final ImageButton sports = (ImageButton) view.findViewById(R.id.fab_sports);
         seek_bar = (SeekBar) view.findViewById(R.id.seekBar);
+        distanceLabel = (TextView)view.findViewById(R.id.distanceLabel);
 
         filters.setOnClickListener(new View.OnClickListener()
         {
@@ -491,7 +493,7 @@ public class ResultsFragment extends Fragment {
     {
 
        // text_view = (TextView)findViewById(R.id.textView);
-        //text_view.setText("Covered : "+seek_bar.getProgress() + "/" + seek_bar.getMax());
+        distanceLabel.setText(seek_bar.getProgress() +" mi" );
         //final
         seek_bar.setOnSeekBarChangeListener(
 
@@ -501,7 +503,7 @@ public class ResultsFragment extends Fragment {
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                         progress_value = progress;
                         System.out.println(progress_value);
-                       // text_view.setText("Covered : "+progress + "/" + seek_bar.getMax());
+                        distanceLabel.setText(seek_bar.getProgress() +" mi" );
                         //Toast.makeText(getActivity(),progress,Toast.LENGTH_LONG).show();
                     }
 
@@ -512,7 +514,7 @@ public class ResultsFragment extends Fragment {
 
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
-                      //  text_view.setText("Covered : "+progress_value + "/" + seek_bar.getMax());
+                        distanceLabel.setText(seek_bar.getProgress() +" mi" );
                          System.out.println(progress_value);
                         rangeDistance = (double)progress_value;
                         refreshRange();

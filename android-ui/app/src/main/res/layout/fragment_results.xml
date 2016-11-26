@@ -9,13 +9,32 @@
 
 
     <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:text="Search Distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchLabel"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:text="100 mi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/distanceLabel"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        />
     <SeekBar
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:id="@+id/seekBar"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:progress="100"
         />
 
     <ListView
@@ -140,6 +159,8 @@
             android:visibility="gone"
             app:layout_anchorGravity="top"
             />
+
+
     </android.support.design.widget.CoordinatorLayout>
 
 </RelativeLayout>
