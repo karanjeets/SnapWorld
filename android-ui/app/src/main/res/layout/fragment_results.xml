@@ -1,4 +1,5 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,8 +9,17 @@
 
 
     <!-- TODO: Update blank fragment layout -->
+    <SeekBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:id="@+id/seekBar"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        />
 
     <ListView
+        android:layout_below="@+id/seekBar"
         android:id="@+id/imageList"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -20,6 +30,7 @@
         android:clickable="true"
         android:backgroundTintMode="add"
         android:fadeScrollbars="true"
+        android:layout_marginTop="20dp"
         />
     <android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -131,4 +142,4 @@
             />
     </android.support.design.widget.CoordinatorLayout>
 
-</FrameLayout>
+</RelativeLayout>

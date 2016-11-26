@@ -30,6 +30,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -58,6 +60,7 @@ public class ResultsFragment extends Fragment {
     private LocationManager locationManager;
     private LocationListener locationListener;
     JSONObject jsonListata = null;
+    private  static SeekBar seek_bar;
     //JSONObject jsondata=null;
     //static JSONArray jsonarray= null;
 
@@ -85,6 +88,7 @@ public class ResultsFragment extends Fragment {
         final ImageButton his = (ImageButton) view.findViewById(R.id.fab_his);
         final ImageButton education = (ImageButton) view.findViewById(R.id.fab_education);
         final ImageButton sports = (ImageButton) view.findViewById(R.id.fab_sports);
+        seek_bar = (SeekBar) view.findViewById(R.id.seekBar);
 
         filters.setOnClickListener(new View.OnClickListener()
         {
@@ -271,6 +275,7 @@ public class ResultsFragment extends Fragment {
                 Toast.makeText(getActivity(),"You clicked "+item.getDescription(),Toast.LENGTH_SHORT).show();
             }});
 
+        seekbar(); //calling seekbar
         return view;
 
 
@@ -477,6 +482,40 @@ public class ResultsFragment extends Fragment {
             imageItems.add(new ListItemWrapper(bitmap, "Image#" + i, "General", "0.5 miles"));
         }*/
         return imageItems;
+    }
+
+    public void seekbar()
+    {
+
+       // text_view = (TextView)findViewById(R.id.textView);
+        //text_view.setText("Covered : "+seek_bar.getProgress() + "/" + seek_bar.getMax());
+        //final
+        seek_bar.setOnSeekBarChangeListener(
+
+                new SeekBar.OnSeekBarChangeListener(){
+                    int progress_value;
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        progress_value = progress;
+                        System.out.println(progress_value);
+                       // text_view.setText("Covered : "+progress + "/" + seek_bar.getMax());
+                        //Toast.makeText(getActivity(),progress,Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                      //  text_view.setText("Covered : "+progress_value + "/" + seek_bar.getMax());
+                         System.out.println(progress_value);
+                        //Toast.makeText(getActivity(),progress_value,Toast.LENGTH_LONG).show();
+                    }
+
+                }
+        );
     }
 
 
