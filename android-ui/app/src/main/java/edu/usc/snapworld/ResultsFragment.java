@@ -276,6 +276,9 @@ public class ResultsFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 ListItemWrapper item = (ListItemWrapper) parent.getItemAtPosition(position);
                 Toast.makeText(getActivity(),"You clicked "+item.getDescription(),Toast.LENGTH_SHORT).show();
+                NavigateActivity.img = item.getImage();
+                Intent myIntent = new Intent((MainActivity)getActivity(), NavigateActivity.class);
+                getActivity().startActivity(myIntent);
             }});
 
         seekbar(); //calling seekbar
