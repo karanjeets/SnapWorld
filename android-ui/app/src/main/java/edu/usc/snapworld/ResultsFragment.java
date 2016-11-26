@@ -57,6 +57,7 @@ public class ResultsFragment extends Fragment {
     public String latitude;
     public String longitude;
     public String categorySelected = "general";
+    private double rangeDistance = 100;
     private LocationManager locationManager;
     private LocationListener locationListener;
     JSONObject jsonListata = null;
@@ -390,6 +391,7 @@ public class ResultsFragment extends Fragment {
 
     private void refreshData() {
         String imgUrl;
+        Double imageDistance = 0.0;
         ListViewAdapter adapter = (ListViewAdapter) listView.getAdapter();
         adapter.clear();
 
@@ -401,7 +403,8 @@ public class ResultsFragment extends Fragment {
                // System.out.println();
                 System.out.println(categorySelected);
                 System.out.println(jsonobject.getString("category_name"));
-                if ((categorySelected == "general") || (categorySelected.equalsIgnoreCase(jsonobject.getString("category_name")))) {
+                imageDistance = Double.parseDouble(jsonobject.getString("road_distance"));
+                if (((categorySelected == "general") || (categorySelected.equalsIgnoreCase(jsonobject.getString("category_name")))) && (imageDistance <= rangeDistance)) {
 
                     DownloadImageTask imgTask = new DownloadImageTask(new DownloadImageTask.ImgAsyncResponse() {
 
@@ -511,6 +514,8 @@ public class ResultsFragment extends Fragment {
                     public void onStopTrackingTouch(SeekBar seekBar) {
                       //  text_view.setText("Covered : "+progress_value + "/" + seek_bar.getMax());
                          System.out.println(progress_value);
+                        rangeDistance = (double)progress_value;
+                        refreshRange();
                         //Toast.makeText(getActivity(),progress_value,Toast.LENGTH_LONG).show();
                     }
 
@@ -518,6 +523,67 @@ public class ResultsFragment extends Fragment {
         );
     }
 
+    private void refreshRange() {
+        String imgUrl;
+        Double imageDistance = 0.0;
+        ListViewAdapter adapter = (ListViewAdapter) listView.getAdapter();
+        adapter.clear();
+
+        for (int i = 0; i < Constants.jsonListArray.length(); i++) {
+
+            try {
+
+                final JSONObject jsonobject = Constants.jsonListArray.getJSONObject(i);
+                // System.out.println();
+                //System.out.println(categorySelected);
+                //System.out.println(jsonobject.getString("category_name"));
+                imageDistance = Double.parseDouble(jsonobject.getString("road_distance"));
+                if (imageDistance <= rangeDistance) {
+
+                    DownloadImageTask imgTask = new DownloadImageTask(new DownloadImageTask.ImgAsyncResponse() {
+
+                        @Override
+                        public void processFinish(Bitmap output) {
+                            bitmap = output;
+                            System.out.println("Inside Process Finish");
+                            try {
+                                ListViewAdapter adapter = (ListViewAdapter) listView.getAdapter();
+                                adapter.getData().add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category_name"), jsonobject.getString("road_distance").substring(0,4)+" miles"));
+                                adapter.notifyDataSetChanged();
+
+                                //imageItems.add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category"), "0.3 miles"));
+                                System.out.println("inside Thread " + jsonobject.getString("description"));
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+
+                    //URL url = new URL("http://104.197.77.81/snapdata/" + jsonobject.getString("imgpath"));
+
+                    //imgTask.requestType = Constants.RequestType.GET;
+                    imgUrl = "http://104.198.60.184/snapdata/" + jsonobject.getString("imgpath");
+                    imgTask.urlString = imgUrl;
+
+                    System.out.println(imgTask.urlString);
+                    //JSONArray dataJsonArr = null;
+
+                    imgTask.execute();
+                }
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+
+        System.out.println("Imageitems" + imageItems);
+
+
+    }
 
 
 }
