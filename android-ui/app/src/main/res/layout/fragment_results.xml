@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="edu.usc.snapworld.ResultsFragment"
-    android:background="@color/pink">
+    tools:context="edu.usc.snapworld.ResultsFragment">
+    <!--android:background="@color/pink"-->
+
 
 
     <!-- TODO: Update blank fragment layout -->
@@ -50,6 +51,9 @@
         android:backgroundTintMode="add"
         android:fadeScrollbars="true"
         android:layout_marginTop="20dp"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+
         />
     <android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

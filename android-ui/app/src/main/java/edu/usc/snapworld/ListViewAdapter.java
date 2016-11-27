@@ -42,7 +42,7 @@ public class ListViewAdapter extends ArrayAdapter {
             eachRow = inflater.inflate(layoutResourceId, parent, false);
             holder = new ListViewHolder();
 
-                eachRow.setBackgroundColor(Color.parseColor("#feeaef"));
+                //eachRow.setBackgroundColor(Color.parseColor("#feeaef"));
 
                 //eachRow.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
