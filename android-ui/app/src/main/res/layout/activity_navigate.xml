@@ -28,7 +28,7 @@
         android:id="@+id/navigateButton"
         android:layout_below="@+id/fullImage"
         android:layout_gravity="right"
-        android:background="@drawable/next"
+        android:background="@drawable/worldwide"
         android:clickable="true"
         android:onClick="navigateMap"
         android:layout_alignParentEnd="true"

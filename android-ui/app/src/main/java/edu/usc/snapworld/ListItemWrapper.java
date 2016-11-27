@@ -13,14 +13,18 @@ public class ListItemWrapper {
     private String description;
     private String distance;
     private String category;
+    private String latitude;
+    private String longitude;
 
-    public ListItemWrapper(Bitmap image, String description, String category, String distance)
+    public ListItemWrapper(Bitmap image, String description, String category, String distance, String latitude, String longitude)
     {
         super();
         this.image =image;
         this.description = description;
         this.distance = distance;
         this.category = category;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Bitmap getImage()
@@ -39,6 +43,8 @@ public class ListItemWrapper {
     {
         return category;
     }
+    public String getLatitude(){return latitude;}
+    public String getLongitude(){return  longitude;}
 
     public void setCategory(String category) {
         this.category = category;
@@ -55,4 +61,6 @@ public class ListItemWrapper {
     public void setImage(Bitmap image) {
         this.image = image;
     }
+    public void setLatitude(String latitude){this.latitude = latitude;}
+    public void setLongitude(String longitude) {this.longitude = longitude;}
 }

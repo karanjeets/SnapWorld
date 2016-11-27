@@ -12,6 +12,8 @@ public class NavigateActivity extends AppCompatActivity {
 
     static byte[] bytes;
     static Bitmap img;
+    static String latitude_dest;
+    static String longitude_dest;
     private  ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +30,12 @@ public class NavigateActivity extends AppCompatActivity {
 
     public void navigateMap(View v)
     {
-        String latitude_cur = "34.0310149";
-        String longitude_cur = "-118.288292";
-        String latitude_dest = "34.028566";
-        String longitude_dest = "-118.284314";
+        //latitude_src = "34.0310149";
+        //longitude_src = "-118.288292";
+        //latitude_dest = "34.028566";
+        //longitude_dest = "-118.284314";
         Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                Uri.parse("http://maps.google.com/maps?saddr="+latitude_cur+","+longitude_cur+"&daddr="+latitude_dest+","+longitude_dest));
+                Uri.parse("http://maps.google.com/maps?saddr="+Constants.LATITUDE+","+Constants.LONGITUDE+"&daddr="+latitude_dest+","+longitude_dest));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addCategory(Intent.CATEGORY_LAUNCHER );
         intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");

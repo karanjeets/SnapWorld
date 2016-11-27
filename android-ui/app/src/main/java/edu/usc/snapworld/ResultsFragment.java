@@ -275,7 +275,11 @@ public class ResultsFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 ListItemWrapper item = (ListItemWrapper) parent.getItemAtPosition(position);
-                Toast.makeText(getActivity(),"You clicked "+item.getDescription(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(),"You clicked "+item.getDescription(),Toast.LENGTH_SHORT).show();
+                Constants.LATITUDE = latitude;
+                Constants.LONGITUDE = longitude;
+                NavigateActivity.latitude_dest = item.getLatitude();
+                NavigateActivity.longitude_dest = item.getLongitude();
                 NavigateActivity.img = item.getImage();
                 Intent myIntent = new Intent((MainActivity)getActivity(), NavigateActivity.class);
                 getActivity().startActivity(myIntent);
@@ -357,7 +361,7 @@ public class ResultsFragment extends Fragment {
                                 System.out.println("Inside Process Finish");
                                 try {
                                     ListViewAdapter adapter = (ListViewAdapter) listView.getAdapter();
-                                    adapter.getData().add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category_name"),jsonobject.getString("road_distance").substring(0,4)+" miles"));
+                                    adapter.getData().add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category_name"),jsonobject.getString("road_distance").substring(0,4)+" miles",jsonobject.getString("latitude"),jsonobject.getString("longitude")));
                                     adapter.notifyDataSetChanged();
 
                                     //imageItems.add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category"), "0.3 miles"));
@@ -419,7 +423,7 @@ public class ResultsFragment extends Fragment {
                             System.out.println("Inside Process Finish");
                             try {
                                 ListViewAdapter adapter = (ListViewAdapter) listView.getAdapter();
-                                adapter.getData().add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category_name"), jsonobject.getString("road_distance").substring(0,4)+" miles"));
+                                adapter.getData().add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category_name"), jsonobject.getString("road_distance").substring(0,4)+" miles",jsonobject.getString("latitude"),jsonobject.getString("longitude")));
                                 adapter.notifyDataSetChanged();
 
                                 //imageItems.add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category"), "0.3 miles"));
@@ -553,7 +557,7 @@ public class ResultsFragment extends Fragment {
                             System.out.println("Inside Process Finish");
                             try {
                                 ListViewAdapter adapter = (ListViewAdapter) listView.getAdapter();
-                                adapter.getData().add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category_name"), jsonobject.getString("road_distance").substring(0,4)+" miles"));
+                                adapter.getData().add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category_name"), jsonobject.getString("road_distance").substring(0,4)+" miles",jsonobject.getString("latitude"),jsonobject.getString("longitude")));
                                 adapter.notifyDataSetChanged();
 
                                 //imageItems.add(new ListItemWrapper(bitmap, jsonobject.getString("description"), jsonobject.getString("category"), "0.3 miles"));
