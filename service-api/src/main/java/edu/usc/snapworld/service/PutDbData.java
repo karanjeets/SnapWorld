@@ -21,6 +21,9 @@ public class PutDbData {
 	      PreparedStatement pst = null;
 
 	      try {
+			  System.out.println("Username, Latitude, Longitude, Category, Description, Timestamp: "
+					  + username + ", " + latitude + ", " + longitude + ", " + category + ", " + description + ", "
+					  + timestamp);
 	    	Class.forName(configProperties.getProperty(Constants.SQL_DRIVER));
 	    	String connectionString = "jdbc:" + configProperties.getProperty(Constants.SQL_DATABASE) + 
 	    			"://" + configProperties.getProperty(Constants.SQL_HOST) + ":" + 
@@ -63,11 +66,13 @@ public class PutDbData {
 	        pst.close();
 	        
 	        c.close();
+			  System.out.println("Operation done successfully");
 	      } catch ( Exception e ) {
 	        System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-	        System.exit(0);
+			  e.printStackTrace();
+	        //System.exit(0);
 	      }
-	      System.out.println("Operation done successfully");
+		System.out.println("Operation failed");
 
 	}
 
