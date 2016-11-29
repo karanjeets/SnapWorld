@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(1);
+        mViewPager.setCurrentItem(0);
 
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -136,13 +136,13 @@ public class MainActivity extends Activity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             //return PlaceholderFragment.newInstance(position + 1);
             switch (position) {
-                case 0:return PlaceholderFragment.newInstance(position + 1);
-                case 2:
+                case 0:return CameraFragment.newInstance();
+                case 1:
                     //return PlaceholderFragment.newInstance(position + 1);
                     resultsFragment = ResultsFragment.newInstance();
                     return ResultsFragment.newInstance();
-                case 1:
-                    return CameraFragment.newInstance();
+                //case 1:
+                    //return CameraFragment.newInstance();
             }
             return null;
         }
@@ -150,7 +150,7 @@ public class MainActivity extends Activity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -160,8 +160,6 @@ public class MainActivity extends Activity {
                     return "SECTION 1";
                 case 1:
                     return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
             }
             return null;
         }
